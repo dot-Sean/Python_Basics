@@ -12,6 +12,8 @@
 
 For some questions, Python program with assert statements is provided to automatically test your solution in the [exercise_files](https://github.com/learnbyexample/Python_Basics/tree/master/exercise_files) directory - for ex: [Q2a - length of integer numbers](https://github.com/learnbyexample/Python_Basics/blob/master/exercise_files/q2a_int_length.py). The directory also has sample input text files.
 
+You can also solve these exercises on [repl.it](https://repl.it/community/classrooms/52626), with an option to submit them for review.
+
 <br>
 
 ## <a name="variables-and-print"></a>1) Variables and Print
@@ -49,10 +51,7 @@ College    : PSG Tech
 # bonus: handle -ve numbers and check for input type
 >>> len_int(-42)
 2
->>> len_int('a')
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "<stdin>", line 3, in len_int
+# len_int('a') should give
 TypeError: provide only integer input
 ```
 
@@ -76,8 +75,48 @@ False
 True
 >>> str_anagram('beat', 'table')
 False
+>>> str_anagram('Tap', 'paT')
+True
 >>> str_anagram('beat', 'abet')
 True
+```
+
+**Q2d)** Returns corresponding integer or floating-point number (See [Number and String data types](./Number_and_String_datatypes.md) chapter for details)
+
+```python
+# number input
+>>> num(3)
+3
+>>> num(0x1f)
+31
+>>> num(3.32)
+3.32
+
+# string input
+>>> num('123')
+123
+>>> num('-78')
+-78
+>>> num(" 42  \n ")
+42
+>>> num('3.14')
+3.14
+>>> num('3.982e5')
+398200.0
+
+>>> s = '56'
+>>> num(s) + 44
+100
+```
+
+Other than integer or floating, only string data type should be accepted. Also, provide custom error message if input cannot be converted
+
+```python
+# num(['1', '2.3'])
+TypeError: not a valid input
+
+# num('foo')
+ValueError: could not convert string to int or float
 ```
 
 <br>
@@ -86,11 +125,11 @@ True
 
 **Q3a)** Write a function that returns
 
-* 'Good' for numbers divisable by 7
-* 'Food' for numbers divisable by 6
-* 'Universe' for numbers divisable by 42
+* 'Good' for numbers divisible by 7
+* 'Food' for numbers divisible by 6
+* 'Universe' for numbers divisible by 42
 * 'Oops' for all other numbers
-* Only one output, divisable by 42 takes precedence
+* Only one output, divisible by 42 takes precedence
 
 ```python
 >>> six_by_seven(66)
@@ -218,6 +257,24 @@ IndexError: list index out of range
 'd'
 ```
 
+**Q4c)** Write a function that accepts a string input and returns slices
+
+* if input string is less than 3 characters long, return a list with input string as the only element
+* otherwise, return list with all string slices greater than 1 character long
+* order of slices should be same as shown in examples below
+
+```python
+>>> word_slices('i')
+['i']
+>>> word_slices('to')
+['to']
+
+>>> word_slices('are')
+['ar', 'are', 're']
+>>> word_slices('table')
+['ta', 'tab', 'tabl', 'table', 'ab', 'abl', 'able', 'bl', 'ble', 'le']
+```
+
 <br>
 
 ## <a name="file"></a>5) File
@@ -249,6 +306,38 @@ How are 1784 you
 
 $ ./extract_sum.py 
 2298
+```
+
+**Q5c)** Sort file contents in alphabetic order based on each line's extension
+
+* extension here is defined as the string after the last `.` in the line
+* if line doesn't have a `.`, those lines should come before lines with `.`
+* sorting should be case-insensitive
+* use rest of string as tie-breaker if there are more than one line with same extension
+* assume input file is ASCII encoded and small enough to fit in memory
+
+*bonus*: instead of printing results to stdout, change the input file itself with sorted result
+
+```bash
+$ cat f3.txt
+power.Log
+foo.123.txt
+list
+report_12.log
+baz.TXT
+hello.RB
+loop.do.rb
+Fav_books
+
+$ ./sort_by_ext.py
+Fav_books
+list
+power.Log
+report_12.log
+hello.RB
+loop.do.rb
+baz.TXT
+foo.123.txt
 ```
 
 <br>
@@ -351,6 +440,22 @@ Iterating over input string is one way to solve this, another is to use regular 
 **Q7a)** Play a song (**hint** use `subprocess` module)
 
 **Q7b)** Open a browser along with any link, for ex: https://github.com/learnbyexample/Python_Basics (**hint** use `webbrowser` module)
+
+**Q7c)** Write a function that
+
+* accepts a filesystem path(default) or a url(indicated by True as second argument)
+* returns the longest word(here word is defined as one or more consecutive sequence of alphabets of either case)
+* assume that input encoding is **utf-8** and small enough to fit in memory and that there's only one distinct longest word
+
+```python
+>>> ip_path = 'poem.txt'
+>>> longest_word(ip_path)
+'Violets'
+
+>>> ip_path = 'https://www.gutenberg.org/files/60/60.txt'
+>>> longest_word(ip_path, True)
+'misunderstandings'
+```
 
 <br>
 
